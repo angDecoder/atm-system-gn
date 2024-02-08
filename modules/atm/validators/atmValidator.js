@@ -29,7 +29,7 @@ const addCard = async (req, res, next) => {
 const depositMoney = async(req,res,next)=>{
   req.apiReference = {
     module: apiModule,
-    api: "deposit money"
+    api: "deposit"
   }
 
   let schema = joi.object({
@@ -50,7 +50,7 @@ const depositMoney = async(req,res,next)=>{
 const withdrawMoney = async(req,res,next)=>{
   req.apiReference = {
     module: apiModule,
-    api: "withdraw money"
+    api: "withdraw"
   }
 
   let schema = joi.object({
