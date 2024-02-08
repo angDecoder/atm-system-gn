@@ -15,7 +15,10 @@ exports.responseMessages = {
     USER_NOT_FOUND              : "User not registered with us",
     USER_INACTIVE               : "This User is not active or blocked by admin. Please contact admin.",
     ALREADY_EXISTS              : "User already exists.",
-    MISSING_PARAMETER           : "Insufficient information was supplied. Please check and try again!"
+    MISSING_PARAMETER           : "Insufficient information was supplied. Please check and try again!",
+    INSUFFICIENT_BALANCE        : "Insufficient balance for transaction",
+    ATM_INSUFFICIENT_BALANCE    : "Not enough cash in atm",
+    ATM_NOTES_UNAVALABLE        : "Only 2000, 500, 200 and 100 notes available"
 }
 
 exports.responseStatus = {
