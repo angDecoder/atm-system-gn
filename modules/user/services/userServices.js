@@ -5,12 +5,12 @@ const pwdServices = require('../../../services/pwdServices');
 const constants = require('../../../responses/responseConstants');
 const jwtServices = require('../../../services/jwtServices');
 
-const register = async(apiReference,values)=>{
+const register = async(apiReference,opts)=>{
 
     let response = { success : false };
-    values.password = pwdServices.encrypt(values.password);
+    opts.password = pwdServices.encrypt(opts.password);
 
-    const registerResponse = await userDao.register(apiReference,values);
+    const registerResponse = await userDao.register(apiReference,opts);
     logging.log(apiReference,{ EVENT : 'REGISTER RESPONSE FETCHED', REGISTER_RESPONSE : registerResponse });
 
     if( !registerResponse.success ){
@@ -22,10 +22,10 @@ const register = async(apiReference,values)=>{
     return response;
 }
 
-const login = async(apiReference,values)=>{
+const login = async(apiReference,opts)=>{
 
     let response = { success : false };
-    let loginResponse = await userDao.login(apiReference,values);
+    let loginResponse = await userDao.login(apiReference,opts);
     if( !loginResponse.success ){
         response.error = loginResponse.error;
         return response;
@@ -33,16 +33,16 @@ const login = async(apiReference,values)=>{
 
     loginResponse = loginResponse.data;
 
-    const match = pwdServices.compare(values.password,loginResponse.password);
+    const match = pwdServices.compare(opts.password,loginResponse.password);
     if( !match ){
         response.error = constants.responseMessages.INVALID_CREDENTIALS;
         return response;
     }
 
-    const accessToken = jwtServices.createJWT(apiReference,{ email : values.email });
+    const accessToken = jwtServices.createJWT(apiReference,{ email : opts.email });
     response.success = true;
     response.data = {
-        email : values.email,
+        email : opts.email,
         accessToken
     }
     return response;

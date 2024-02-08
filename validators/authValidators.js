@@ -32,7 +32,7 @@ const validations = async (req, res, next) => {
         return responses.invalidAuthKey(res);
     }
 
-    req.body.owner = decodeToken.email;
+    req.body.email = decodeToken.email;
 
     return next();
 }

@@ -6,7 +6,9 @@ const fileSwitches = {
     startup : true,
     todo    : true,
     register: true,
-    login   : true
+    login   : true,
+    atm : true,
+    user: true
 };
 
 const modules = {
@@ -24,6 +26,13 @@ const modules = {
     },
     login: {
         login       : true
+    },
+    user : {
+        login : true,
+        register : true,
+    },
+    atm : {
+        addCard : true
     }
 }
 

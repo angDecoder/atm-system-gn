@@ -11,9 +11,10 @@ const addCard = async (req, res, next) => {
     api: "add card"
   }
 
+  console.log('here');
   let schema = joi.object({
-    atm_pin: joi.number().strict().required(),
-    atm_card: joi.number().strict().required(),
+    atm_pin: joi.string().required(),
+    atm_card: joi.number().strict().max(88888888).min(11111111).required(),
   });
 
   const reqBody = { ...req.body };
@@ -25,7 +26,51 @@ const addCard = async (req, res, next) => {
   }
 }
 
+const depositMoney = async(req,res,next)=>{
+  req.apiReference = {
+    module: apiModule,
+    api: "deposit money"
+  }
+
+  let schema = joi.object({
+    atm_pin: joi.string().required(),
+    atm_card: joi.number().strict().max(88888888).min(11111111).required(),
+    amount : joi.number().strict().min(100).required()
+  });
+
+  const reqBody = { ...req.body };
+  const request = { ...req };
+
+  let validFields = await validators.validateFields(req.apiReference, request, reqBody, res, schema);
+  if (validFields) {
+    next();
+  }
+}
+
+const withdrawMoney = async(req,res,next)=>{
+  req.apiReference = {
+    module: apiModule,
+    api: "withdraw money"
+  }
+
+  let schema = joi.object({
+    atm_id : joi.string().required(),
+    atm_pin: joi.string().trim().required(),
+    atm_card: joi.number().strict().max(88888888).min(11111111).required(),
+    amount : joi.number().strict().min(100).required()
+  });
+
+  const reqBody = { ...req.body };
+  const request = { ...req };
+
+  let validFields = await validators.validateFields(req.apiReference, request, reqBody, res, schema);
+  if (validFields) {
+    next();
+  }
+}
 
 module.exports = {
-  addCard
+  addCard,
+  depositMoney,
+  withdrawMoney
 }

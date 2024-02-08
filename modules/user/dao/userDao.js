@@ -19,7 +19,7 @@ const register = async (apiReference, opts) => {
         queryString,
         val
     );
-    logging.log(apiReference, { EVENT: "USER REGISTERED", VALUE: registerResponse });
+    logging.log(apiReference, { EVENT: "USER REGISTERE RESPONSE", VALUE: registerResponse });
 
     if (registerResponse.ERROR) {
         if (queryResponse.ERROR) {
