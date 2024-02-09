@@ -7,7 +7,7 @@ const mongolib = require('./mongolib');
 const initialze = async(apiReference,)=>{
     // initialze mysql 
     logging.log(apiReference,'STARTING MYSQL CONNECTION @');
-    global.mysqlCon = await mysqllib.initialize(apiReference,dbProperties.mysql.master);
+    global.mysqlCon = await mysqllib.initialize(apiReference,dbProperties.mysql);
 
 
     // initialize mongodb 

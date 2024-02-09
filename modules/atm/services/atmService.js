@@ -163,8 +163,35 @@ const withdrawMoney = async(apiReference,opts)=>{
   return response;
 }
 
+const getBalance = async(apiReference,opts)=>{
+  
+  let response = { success : false };
+  logging.log(apiReference,{ EVENT : "FETCHING BALANCE", VALUE : opts });
+
+  let cardDetails = await atmDao.fetchCardDetails(apiReference,opts);
+  if( !cardDetails.success ){
+    return cardDetails;
+  }
+  logging.log(apiReference,{ EVENT : "CARD DETAILS RESPONSE", VALUE : cardDetails });
+
+  cardDetails = cardDetails.data;
+  const match = pwdServices.compare(opts.atm_pin,cardDetails.atm_pin);
+  if( !match ){
+    response.error = constants.responseMessages.INVALID_CREDENTIALS;
+    return response;
+  }
+
+  response.success = true;
+  response.data = {
+    balance : cardDetails.balance
+  }
+
+  return response;
+}
+
 module.exports = {
   addCard,
   depositMoney,
-  withdrawMoney
+  withdrawMoney,
+  getBalance
 }

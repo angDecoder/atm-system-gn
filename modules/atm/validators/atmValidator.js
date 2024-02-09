@@ -69,8 +69,29 @@ const withdrawMoney = async(req,res,next)=>{
   }
 }
 
+const getBalance = async(req,res,next)=>{
+  req.apiReference = {
+    module: apiModule,
+    api: "getBalance"
+  }
+
+  let schema = joi.object({
+    atm_pin: joi.string().trim().required(),
+    atm_card: joi.number().strict().max(88888888).min(11111111).required()
+  });
+
+  const reqBody = { ...req.body };
+  const request = { ...req };
+
+  let validFields = await validators.validateFields(req.apiReference, request, reqBody, res, schema);
+  if (validFields) {
+    next();
+  }
+}
+
 module.exports = {
   addCard,
   depositMoney,
-  withdrawMoney
+  withdrawMoney,
+  getBalance
 }

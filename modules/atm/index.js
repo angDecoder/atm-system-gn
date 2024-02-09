@@ -8,5 +8,6 @@ const atmControllers = require('./controllers/atmController');
 router.post('/card/add', atmValidators.addCard,authValidators.authenticateUser, atmControllers.addCard);
 router.post('/withdraw',atmValidators.withdrawMoney,atmControllers.withdrawMoney);
 router.post('/deposit',atmValidators.depositMoney,atmControllers.depositMoney);
+router.get('/balance',atmValidators.getBalance,atmControllers.getBalance)
 
 module.exports = router;
