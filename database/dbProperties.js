@@ -1,4 +1,5 @@
 const config = require('config');
+require('dotenv').config();
 
 const mysql = {
     host: config.get("master.host") || process.env.DB_HOST,
